@@ -11,11 +11,20 @@ export class ProblemeComponent implements OnInit {
   
 //FormBuiolder --> problemeForm
 //FormGroup ---> problemeForm
-  constructor(private FormGroup: FormBuilder) { }
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
-    this.problemeForm = this.FormGroup.group({
-        prenom: ['',[Validators.minLength(3), Validators.maxLength(200), Validators.required]]
+    this.problemeForm = this.fb.group({
+        prenom: ['',[Validators.minLength(3), Validators.required]]
     });
   }
+
+
+  //Ajout de la methode save()
+  save(): void{
+
+  }
+
 }
+
+

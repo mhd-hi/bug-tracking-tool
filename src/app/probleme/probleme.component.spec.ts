@@ -33,13 +33,11 @@ describe('ProblemeComponent', () => {
      errors = zone.errors || {};
       expect(errors['minlength']).toBeTruthy();
    });
-
   it('#2 | Zone PRÉNOM valide avec 3 caractères', () => {
       let zone = component.problemeForm.controls['prenom'];
       zone.setValue('a'.repeat(3));
       expect(zone.valid).toBeTruthy();
     });
-
   it('#3 | Zone PRÉNOM valide avec 200 caractères', () => {
       let errors = {};
       let zone = component.problemeForm.controls['prenom'];
@@ -47,7 +45,6 @@ describe('ProblemeComponent', () => {
       errors = zone.errors || {};
       expect('maxlength').toBeTruthy();
     });
-    
   it('#4 | Zone PRÉNOM invalide avec aucune valeur', () => {
      let errors = {};
      let zone = component.problemeForm.controls['prenom'];
@@ -55,7 +52,6 @@ describe('ProblemeComponent', () => {
      errors = zone.errors.required || {};
      expect(zone.errors.required).toBeTruthy();
    });
-
    it('#5 | Zone PRÉNOM valide avec 10 espaces', () => {
     let errors = {};
     let zone = component.problemeForm.controls['prenom'];
@@ -63,7 +59,6 @@ describe('ProblemeComponent', () => {
     errors = zone.errors || {};
     expect(zone.valid).toBeTruthy();
   });
-  
   it('#6 | Zone PRÉNOM valide avec 2 espaces et 1 caractère', () => {
     let errors = {};
     let zone = component.problemeForm.controls['prenom'];
