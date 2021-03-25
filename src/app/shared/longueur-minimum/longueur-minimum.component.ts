@@ -1,13 +1,13 @@
 import { AbstractControl, ValidatorFn } from "@angular/forms";
 
 export class longueurMinimum {
-    static plage(): ValidatorFn {
+    static plage(valeurMinimum: number): ValidatorFn {
         //Sous angular, dans les validateurs pour indiquer un succes, retourner null autrement retourner une cle valeur json
         return (c: AbstractControl): { [key: string]: boolean } | null => { 
-            if (c.value >= 1 && c.value <= 5){
-                return null;
+            if (c.value >= valeurMinimum ) {
+                return null; 
             }
-            return { 'plageInvalide': true};
+            return { 'longueurInvalide': true};
         };  
     }
 }
