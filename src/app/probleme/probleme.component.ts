@@ -3,6 +3,18 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ZonesValidator } from '../shared/longueur-minimum/longueur-minimum.component';
 import { ITypeProbleme } from './typeprobleme';
 import { TypeproblemeService } from './typeprobleme.service';
+import { AbstractControl, ValidatorFn } from '@angular/forms';
+
+export class emailMatcherValidator {
+  static courrielDifferents(): ValidatorFn {
+      return (c: AbstractControl): { [key: string]: boolean } | null => {
+          if (!c['controls'].courriel.value || !c['controls'].courrielConfirmation.value) {
+            return null;
+          }
+          return c['controls'].courriel.value === c['controls'].courrielConfirmation.value ? null : { match: true };
+      };
+  }   
+}
 
 @Component({
   selector: 'Inter-probleme',
@@ -27,7 +39,8 @@ export class ProblemeComponent implements OnInit {
           courriel: [{value: '', disabled: true}],
           courrielConfirmation: [{value: '', disabled: true}],
         }),
-        telephone: [{value: '', disabled: true}]
+        telephone: [{value: '', disabled: true}],
+        message: [{value: '',  disabled: true}]
     });
 
     this.problemes.obtenirProblemes()
@@ -42,9 +55,16 @@ export class ProblemeComponent implements OnInit {
     const courrielControl = this.problemeForm.get('courrielGroup.courriel');
     const courrielConfirmationControl = this.problemeForm.get('courrielGroup.courrielConfirmation');
     const telephoneControl = this.problemeForm.get('telephone');
+    const courrielGroupControl = this.problemeForm.get("courrielGroup");
+    const messageControl = this.problemeForm.get('telephone');
+
     courrielControl.clearValidators();
     courrielControl.reset();
     courrielControl.disable();
+
+    messageControl.clearValidators();
+    messageControl.reset();
+    messageControl.disable();
 
     courrielConfirmationControl.clearValidators();
     courrielConfirmationControl.reset();
@@ -53,33 +73,39 @@ export class ProblemeComponent implements OnInit {
     telephoneControl.clearValidators();
     telephoneControl.reset();
     telephoneControl.disable();
-    if(typeNotification === "menotifier") {
-      courrielControl.setValidators([Validators.required])
+
+    if(typeNotification === "ParCourriel") {
       courrielControl.enable();
-      courrielConfirmationControl.setValidators([Validators.required])
-      courrielConfirmationControl.enable();
+      courrielControl.setValidators([Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+'), Validators.required]);  
+      courrielConfirmationControl.enable(); 
+      courrielConfirmationControl.setValidators([Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+'), Validators.required]);
+      courrielGroupControl.setValidators([Validators.compose([emailMatcherValidator.courrielDifferents()])]);
       telephoneControl.setValidators([Validators.required])
-      telephoneControl.enable();
+      telephoneControl.disable();
+    } else if (typeNotification === 'ParTelephone'){
+      telephoneControl.enable(); 
+      telephoneControl.setValidators([Validators.required]);
+    } else if (typeNotification === 'ParMessage'){
+      telephoneControl.enable(); 
+      telephoneControl.setValidators([Validators.required]);
+      messageControl.enable();
+      messageControl.setValidators([Validators.required]);
+      messageControl.setValidators([Validators.pattern('[0-9]+'), Validators.required]);  
+    }
+    else
+    {
+      courrielControl.disable();
+      courrielControl.reset();  
+      courrielConfirmationControl.disable();
+      courrielConfirmationControl.reset();  
+      telephoneControl.disable();
+      telephoneControl.reset();       
+      courrielGroupControl.disable();
+      courrielGroupControl.reset();
     }
     courrielControl.updateValueAndValidity();
     telephoneControl.updateValueAndValidity();
     courrielConfirmationControl.updateValueAndValidity();
+    messageControl.updateValueAndValidity();
   }
 }
-
-
-
-
-
-
-
-
-//ligne 56
-    // if(typeNotification === "nepasmenotifier") {
-    //   courrielControl.setValidators([Validators.required])
-    //   courrielControl.enable();
-    //   courrielConfirmationControl.setValidators([Validators.required])
-    //   courrielConfirmationControl.enable();
-    //   telephoneControl.setValidators([Validators.required])
-    //   telephoneControl.enable();
-    // }
