@@ -185,17 +185,20 @@ describe('ProblemeComponent', () => {
   });
   it('#34 | Zone TELEPHONE est invalide avec 9 chiffres consécutifs quand notifier par messagerie texte', () => {
     component.appliquerNotifications('ParMessage');
-    let zone = component.problemeForm.get('telephone');
-    expect(zone.enabled).toBeTrue();
+    let telephone = component.problemeForm.get('telephone');
+    telephone.setValue('123456789');
+    expect(telephone.status).toEqual("INVALID");
   });
   it('#35 | Zone TELEPHONE est invalide avec 11 chiffres consécutifs quand notifier par messagerie texte', () => {
     component.appliquerNotifications('ParMessage');
-    let zone = component.problemeForm.get('telephone');
-    expect(zone.enabled).toBeTrue();
+    let telephone = component.problemeForm.get('telephone');
+    telephone.setValue('12345678912');
+    expect(telephone.status).toEqual("INVALID");
   });
   it('#36 | Zone TELEPHONE est valide avec 10 chiffres consécutifs quand notifier par messagerie texte', () => {
     component.appliquerNotifications('ParMessage');
-    let zone = component.problemeForm.get('telephone');
-    expect(zone.enabled).toBeTrue();
+    let telephone = component.problemeForm.get('telephone');
+    telephone.setValue('1234567891');
+    expect(telephone.status).toEqual("VALID");
   });
 });

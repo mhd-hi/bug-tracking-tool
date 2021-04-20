@@ -56,7 +56,7 @@ export class ProblemeComponent implements OnInit {
     const courrielConfirmationControl = this.problemeForm.get('courrielGroup.courrielConfirmation');
     const telephoneControl = this.problemeForm.get('telephone');
     const courrielGroupControl = this.problemeForm.get("courrielGroup");
-    const messageControl = this.problemeForm.get('telephone');
+    const messageControl = this.problemeForm.get('message');
 
     courrielControl.clearValidators();
     courrielControl.reset();
@@ -87,7 +87,7 @@ export class ProblemeComponent implements OnInit {
       telephoneControl.setValidators([Validators.required]);
     } else if (typeNotification === 'ParMessage'){
       telephoneControl.enable(); 
-      telephoneControl.setValidators([Validators.required]);
+      telephoneControl.setValidators([ Validators.minLength(10), Validators.maxLength(10), Validators.required]);
       messageControl.enable();
       messageControl.setValidators([Validators.required]);
       messageControl.setValidators([Validators.pattern('[0-9]+'), Validators.required]);  
@@ -102,6 +102,8 @@ export class ProblemeComponent implements OnInit {
       telephoneControl.reset();       
       courrielGroupControl.disable();
       courrielGroupControl.reset();
+      messageControl.disable();
+      messageControl.reset();
     }
     courrielControl.updateValueAndValidity();
     telephoneControl.updateValueAndValidity();
