@@ -25,7 +25,7 @@ export class ProblemeComponent implements OnInit {
         nomProbleme: ['', [Validators.maxLength(50), Validators.required]],
         noProbleme: ['', [Validators.required]],
         
-        notifications: ["nepasmenotifier"], 
+        notifications: ["nepasmenotifier"],
         courrielGroup: this.fb.group({
           courriel: [{value: '', disabled: true}],
           courrielConfirmation: [{value: '', disabled: true}],
