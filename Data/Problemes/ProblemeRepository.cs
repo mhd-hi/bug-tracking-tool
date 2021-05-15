@@ -4,7 +4,7 @@ using System.Linq;
 using Intervention.Data.Entities;
 using Microsoft.Extensions.Logging;
 
-namespace Interventions.Data.Problemes
+namespace Intervention.Data.Problemes
 {
     public class ProblemeRepository : IProblemeRepository
     {
@@ -30,7 +30,7 @@ namespace Interventions.Data.Problemes
             }
         }
 
-        public void AddEntity(Probleme model)
+        public void AddEntity(object model)
         {
             _ctx.Add(model);
         }
@@ -46,16 +46,6 @@ namespace Interventions.Data.Problemes
                 _logger.LogError($"Erreur dans la sauvegarde {ex}");
                 return false;
             }
-        }
-
-        public IEnumerable<TypeProbleme> ObtenirTypesProblemes()
-        {
-            throw new NotImplementedException();
-        }
-
-        bool IProblemeRepository.Save()
-        {
-            throw new NotImplementedException();
         }
     }
 }

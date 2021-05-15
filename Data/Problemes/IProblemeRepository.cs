@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using Intervention.Data.Entities;
 
-namespace Interventions.Data.Problemes
+namespace Intervention.Data.Problemes
 {
     public interface IProblemeRepository
     {
-        IEnumerable<TypeProbleme> ObtenirTypesProblemes();
-        void AddEntity(Probleme model);
+        IEnumerable<TypeProbleme> ObtenirTypesProbleme();
+        void AddEntity(object model);
         bool Save();
     }
 }

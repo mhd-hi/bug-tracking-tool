@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Interventions.Data;
-using Interventions.Data.Problemes;
+using Intervention.Data;
+using Intervention.Data.Problemes;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -40,6 +40,16 @@ namespace Intervention
 
             services.AddScoped<IProblemeRepository, ProblemeRepository>();
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAllOrigins",
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin();
+                        builder.AllowAnyMethod();
+                        builder.AllowAnyHeader();
+                    });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,6 +67,8 @@ namespace Intervention
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCors("AllowAllOrigins");
 
             app.UseEndpoints(endpoints =>
             {

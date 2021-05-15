@@ -6,8 +6,6 @@ namespace Intervention.Data.Entities
     [Table("TypeProbleme", Schema = "dbo")]
     public class TypeProbleme
     {
-
-
         [Key]
         public int Id { get; set; }
 

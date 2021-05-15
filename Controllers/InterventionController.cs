@@ -1,6 +1,6 @@
 using System;
 using Intervention.Data.Entities;
-using Interventions.Data.Problemes;
+using Intervention.Data.Problemes;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -26,11 +26,11 @@ namespace Intervention.Controllers
         {
             try
             {
-                return Ok(_problemeRepository.ObtenirTypesProblemes());
+                return Ok(_problemeRepository.ObtenirTypesProbleme());
             }
-            catch
+            catch (Exception ex)
             {
-                _logger.LogError("$Erreur pour obtenir les types de produit {ex}");
+                _logger.LogError($"Erreur pour obtenir les types de produit {ex}");
                 return BadRequest("Erreur pour obtenir les types de produit");
             }
         }

@@ -3,7 +3,7 @@
 using Intervention.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Interventions.Data
+namespace Intervention.Data
 {   
     public class InterventionsContext : DbContext
     {
